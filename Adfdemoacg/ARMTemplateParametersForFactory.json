@@ -16,6 +16,9 @@
 		},
 		"storage acc linked service_properties_typeProperties_url": {
 			"value": "https://adfdemosgacc.dfs.core.windows.net/"
+		},
+		"free_rest_api_properties_typeProperties_url": {
+			"value": "https://api.restful-api.dev/objects"
 		}
 	}
 }

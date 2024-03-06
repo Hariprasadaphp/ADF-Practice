@@ -22,6 +22,10 @@
 		"storage acc linked service_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adfdemosgacc.dfs.core.windows.net/"
+		},
+		"free_rest_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.restful-api.dev/objects"
 		}
 	},
 	"variables": {
@@ -56,7 +60,8 @@
 									"mbaappsingestion": {},
 									"browsertrendsraw": {},
 									"sink1": {}
-								}
+								},
+								"linkedServiceParameters": {}
 							},
 							"staging": {},
 							"compute": {
@@ -359,14 +364,14 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "browser_trend",
+								"referenceName": "free_rest_api",
 								"type": "DatasetReference"
 							},
 							"name": "browsertrendsingestion"
 						},
 						{
 							"dataset": {
-								"referenceName": "RestResource1",
+								"referenceName": "free_rest_api",
 								"type": "DatasetReference"
 							},
 							"name": "mbaappsingestion"
@@ -426,11 +431,43 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/browser_trend')]",
-				"[concat(variables('factoryId'), '/datasets/RestResource1')]",
+				"[concat(variables('factoryId'), '/datasets/free_rest_api')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]",
 				"[concat(variables('factoryId'), '/linkedServices/storage acc linked service')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('free_rest_api_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "free_rest_api",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/free_rest_api')]"
 			]
 		}
 	]
