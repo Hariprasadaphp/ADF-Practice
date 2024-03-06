@@ -1,0 +1,12 @@
+{
+	"name": "browser_trend_connection",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
