@@ -33,7 +33,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Json1",
+						"referenceName": "RestResource2",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -64,11 +64,16 @@
 				"     skipDuplicateMapOutputs: true) ~> browsertrendsraw",
 				"mbaappsingestion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink1"
 			]
 		}
 	}
