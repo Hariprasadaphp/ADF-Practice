@@ -6,14 +6,14 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "browser_trend",
+						"referenceName": "free_rest_api",
 						"type": "DatasetReference"
 					},
 					"name": "browsertrendsingestion"
 				},
 				{
 					"dataset": {
-						"referenceName": "RestResource1",
+						"referenceName": "free_rest_api",
 						"type": "DatasetReference"
 					},
 					"name": "mbaappsingestion"

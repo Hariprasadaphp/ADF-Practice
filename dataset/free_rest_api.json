@@ -1,0 +1,12 @@
+{
+	"name": "free_rest_api",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "free_rest_api",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
