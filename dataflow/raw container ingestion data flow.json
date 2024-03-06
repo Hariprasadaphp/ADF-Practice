@@ -13,7 +13,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "free_rest_api",
+						"referenceName": "RestResource4",
 						"type": "DatasetReference"
 					},
 					"name": "mbaappsingestion"
@@ -33,7 +33,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "RestResource2",
+						"referenceName": "Json2",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -64,16 +64,15 @@
 				"     skipDuplicateMapOutputs: true) ~> browsertrendsraw",
 				"mbaappsingestion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:false,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     timeout: 30,",
-				"     requestInterval: 0,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
+				"     input(",
+				"          body as (data as (capacity as string, color as string, {capacity GB} as string, price as string, generation as string, {CPU model} as string, {Hard disk size} as string, year as string, {Case Size} as string, {Strap Colour} as string, Color as string, Description as string, Capacity as string, {Screen size} as string), id as string, name as string),",
+				"          headers as (Vary as string, {Report-To} as string, {Transfer-Encoding} as string, Server as string, Connection as string, {CF-Cache-Status} as string, {Content-Type} as string, Date as string, NEL as string, {CF-RAY} as string, {alt-svc} as string)",
+				"     ),",
+				"     umask: 0022,",
 				"     preCommands: [],",
-				"     postCommands: []) ~> sink1"
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
