@@ -8,6 +8,12 @@
 		"storage acc linked service_accountKey": {
 			"value": ""
 		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://reqres.in/api/users?page=2"
+		},
+		"RestService2_properties_typeProperties_url": {
+			"value": "http://api.apis.guru/v2/list.json"
+		},
 		"browser_trend_connection_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv"
 		},

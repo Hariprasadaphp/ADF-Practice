@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'storage acc linked service'"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://reqres.in/api/users?page=2"
+		},
+		"RestService2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "http://api.apis.guru/v2/list.json"
+		},
 		"browser_trend_connection_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv"
@@ -57,6 +65,12 @@
 					"storage acc linked service_accountKey": {
 						"value": "[parameters('storage acc linked service_accountKey')]"
 					},
+					"RestService1_properties_typeProperties_url": {
+						"value": "[parameters('RestService1_properties_typeProperties_url')]"
+					},
+					"RestService2_properties_typeProperties_url": {
+						"value": "[parameters('RestService2_properties_typeProperties_url')]"
+					},
 					"browser_trend_connection_properties_typeProperties_url": {
 						"value": "[parameters('browser_trend_connection_properties_typeProperties_url')]"
 					},
@@ -72,6 +86,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "Adfdemoacg_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Adfdemoacg_ArmTemplate_0')]"
+			]
 		}
 	]
 }
