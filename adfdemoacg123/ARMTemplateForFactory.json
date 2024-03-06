@@ -21,7 +21,7 @@
 		},
 		"api2_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://api.restful-api.dev/objects"
+			"defaultValue": "https://api.publicapis.org/entries"
 		}
 	},
 	"variables": {
@@ -67,13 +67,13 @@
 						}
 					},
 					{
-						"name": "Data transformation into processed",
-						"type": "ExecuteDataFlow",
+						"name": "Transform file to csv",
+						"type": "Copy",
 						"dependsOn": [
 							{
 								"activity": "Data ingestion to raw",
 								"dependencyConditions": [
-									"Completed"
+									"Succeeded"
 								]
 							}
 						],
@@ -86,24 +86,313 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dataflow2",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"source2": {},
-									"sink1": {},
-									"sink2": {}
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
 								}
 							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
 							},
-							"traceLevel": "Fine"
-						}
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['body']['data']['capacity']"
+										},
+										"sink": {
+											"name": "capacity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['color']"
+										},
+										"sink": {
+											"name": "color",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['capacity GB']"
+										},
+										"sink": {
+											"name": "capacity GB",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['price']"
+										},
+										"sink": {
+											"name": "price",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['generation']"
+										},
+										"sink": {
+											"name": "generation",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['CPU model']"
+										},
+										"sink": {
+											"name": "CPU model",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Hard disk size']"
+										},
+										"sink": {
+											"name": "Hard disk size",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['year']"
+										},
+										"sink": {
+											"name": "year",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Case Size']"
+										},
+										"sink": {
+											"name": "Case Size",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Strap Colour']"
+										},
+										"sink": {
+											"name": "Strap Colour",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Color']"
+										},
+										"sink": {
+											"name": "Color",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Description']"
+										},
+										"sink": {
+											"name": "Description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Capacity']"
+										},
+										"sink": {
+											"name": "Capacity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['data']['Screen size']"
+										},
+										"sink": {
+											"name": "Screen size",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['id']"
+										},
+										"sink": {
+											"name": "id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['body']['name']"
+										},
+										"sink": {
+											"name": "name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['Vary']"
+										},
+										"sink": {
+											"name": "Vary",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['Report-To']"
+										},
+										"sink": {
+											"name": "Report-To",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['Transfer-Encoding']"
+										},
+										"sink": {
+											"name": "Transfer-Encoding",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['Server']"
+										},
+										"sink": {
+											"name": "Server",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['Connection']"
+										},
+										"sink": {
+											"name": "Connection",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['CF-Cache-Status']"
+										},
+										"sink": {
+											"name": "CF-Cache-Status",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['headers']['alt-svc']"
+										},
+										"sink": {
+											"name": "alt-svc",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "copy_to_csv",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Transform file to parquet",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Data ingestion to raw",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -113,7 +402,10 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
-				"[concat(variables('factoryId'), '/dataflows/dataflow2')]"
+				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/datasets/copy_to_csv')]",
+				"[concat(variables('factoryId'), '/datasets/Json2')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
 			]
 		},
 		{
@@ -184,6 +476,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "file1.json",
 						"fileSystem": "raw"
 					}
 				},
@@ -207,6 +500,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "file2.json",
 						"fileSystem": "raw"
 					}
 				},
@@ -449,6 +743,59 @@
 				"[concat(variables('factoryId'), '/datasets/Json2')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/copy_to_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "copy_to_csv.csv",
+						"fileSystem": "processed"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "parquet_file.parquet",
+						"fileSystem": "processed"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		}
 	]

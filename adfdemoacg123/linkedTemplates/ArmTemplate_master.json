@@ -21,7 +21,7 @@
 		},
 		"api2_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://api.restful-api.dev/objects"
+			"defaultValue": "https://api.publicapis.org/entries"
 		},
 		"containerUri": {
 			"type": "string",

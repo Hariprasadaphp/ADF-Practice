@@ -15,7 +15,7 @@
 			"value": "https://api.coindesk.com/v1/bpi/currentprice.json"
 		},
 		"api2_properties_typeProperties_url": {
-			"value": "https://api.restful-api.dev/objects"
+			"value": "https://api.publicapis.org/entries"
 		},
 		"containerUri": {
 			"value": ""
