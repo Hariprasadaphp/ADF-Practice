@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://reqres.in/api/users?page=2",
+			"url": "http://api.apis.guru/v2/list.json",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
