@@ -33,7 +33,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Json2",
+						"referenceName": "Json3",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -64,10 +64,6 @@
 				"     skipDuplicateMapOutputs: true) ~> browsertrendsraw",
 				"mbaappsingestion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          body as (data as (capacity as string, color as string, {capacity GB} as string, price as string, generation as string, {CPU model} as string, {Hard disk size} as string, year as string, {Case Size} as string, {Strap Colour} as string, Color as string, Description as string, Capacity as string, {Screen size} as string), id as string, name as string),",
-				"          headers as (Vary as string, {Report-To} as string, {Transfer-Encoding} as string, Server as string, Connection as string, {CF-Cache-Status} as string, {Content-Type} as string, Date as string, NEL as string, {CF-RAY} as string, {alt-svc} as string)",
-				"     ),",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: []) ~> sink1"
