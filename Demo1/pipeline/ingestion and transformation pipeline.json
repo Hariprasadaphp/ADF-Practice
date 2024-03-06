@@ -33,7 +33,7 @@
 					{
 						"activity": "Data ingestion to raw",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
@@ -302,7 +302,7 @@
 					{
 						"activity": "Data ingestion to raw",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
