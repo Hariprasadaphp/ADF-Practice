@@ -15,6 +15,10 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv"
 		},
+		"free_rest_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.restful-api.dev/objects"
+		},
 		"mba apps linked service_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/mba_apps.csv"
@@ -22,10 +26,6 @@
 		"storage acc linked service_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adfdemosgacc.dfs.core.windows.net/"
-		},
-		"free_rest_api_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://api.restful-api.dev/objects"
 		}
 	},
 	"variables": {
@@ -60,8 +60,7 @@
 									"mbaappsingestion": {},
 									"browsertrendsraw": {},
 									"sink1": {}
-								},
-								"linkedServiceParameters": {}
+								}
 							},
 							"staging": {},
 							"compute": {
@@ -176,6 +175,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "storage acc linked service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/storage acc linked service')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -236,6 +258,24 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "free_rest_api",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/free_rest_api')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/browser_trend_connection')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -244,6 +284,21 @@
 				"type": "RestService",
 				"typeProperties": {
 					"url": "[parameters('browser_trend_connection_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('free_rest_api_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
 				}
@@ -380,7 +435,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "DelimitedText2",
+								"referenceName": "Json1",
 								"type": "DatasetReference"
 							},
 							"name": "browsertrendsraw",
@@ -391,7 +446,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "DelimitedText1",
+								"referenceName": "Json1",
 								"type": "DatasetReference"
 							},
 							"name": "sink1"
@@ -432,42 +487,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/free_rest_api')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]",
-				"[concat(variables('factoryId'), '/linkedServices/storage acc linked service')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('free_rest_api_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/free_rest_api')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "free_rest_api",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/free_rest_api')]"
+				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/linkedServices/storage acc linked service')]"
 			]
 		}
 	]

@@ -11,14 +11,14 @@
 		"browser_trend_connection_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv"
 		},
+		"free_rest_api_properties_typeProperties_url": {
+			"value": "https://api.restful-api.dev/objects"
+		},
 		"mba apps linked service_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/mba_apps.csv"
 		},
 		"storage acc linked service_properties_typeProperties_url": {
 			"value": "https://adfdemosgacc.dfs.core.windows.net/"
-		},
-		"free_rest_api_properties_typeProperties_url": {
-			"value": "https://api.restful-api.dev/objects"
 		}
 	}
 }
