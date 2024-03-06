@@ -70,9 +70,7 @@
 				"     ),",
 				"     umask: 0022,",
 				"     preCommands: [],",
-				"     postCommands: [],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     postCommands: []) ~> sink1"
 			]
 		}
 	}
