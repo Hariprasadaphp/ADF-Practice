@@ -1,0 +1,12 @@
+{
+	"name": "browser_trend",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "browser_trend_connection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}

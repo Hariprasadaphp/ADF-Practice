@@ -1,0 +1,75 @@
+{
+	"name": "raw container ingestion data flow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "browser_trend",
+						"type": "DatasetReference"
+					},
+					"name": "browsertrendsingestion"
+				},
+				{
+					"dataset": {
+						"referenceName": "RestResource1",
+						"type": "DatasetReference"
+					},
+					"name": "mbaappsingestion"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "browsertrendsraw",
+					"rejectedDataLinkedService": {
+						"referenceName": "storage acc linked service",
+						"type": "LinkedServiceReference"
+					}
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     httpMethod: 'GET',",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
+				"     paginationRules: ['supportRFC5988' -> 'true'],",
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'documentPerLine']) ~> browsertrendsingestion",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     httpMethod: 'GET',",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
+				"     paginationRules: ['supportRFC5988' -> 'true'],",
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'documentPerLine']) ~> mbaappsingestion",
+				"browsertrendsingestion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> browsertrendsraw",
+				"mbaappsingestion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
