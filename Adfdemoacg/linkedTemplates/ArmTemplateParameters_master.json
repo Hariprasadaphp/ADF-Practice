@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Adfdemoacg"
+		},
+		"storage acc linked service_accountKey": {
+			"value": ""
+		},
+		"browser_trend_connection_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/browser_trends.csv"
+		},
+		"mba apps linked service_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/mba_apps.csv"
+		},
+		"storage acc linked service_properties_typeProperties_url": {
+			"value": "https://adfdemosgacc.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
