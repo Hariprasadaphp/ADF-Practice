@@ -1,0 +1,12 @@
+{
+	"name": "mba apps linked service",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/awaheeddev/datafiles/main/mba_apps.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
